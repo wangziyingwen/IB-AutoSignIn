@@ -1,0 +1,12 @@
+{
+    "name": "ib-signin",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {},
+    "author": "Kino",
+    "license": "",
+    "dependencies": {
+        "axios":""
+    }
+  }
