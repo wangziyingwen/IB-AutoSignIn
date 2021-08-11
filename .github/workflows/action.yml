@@ -18,6 +18,8 @@ jobs:
     - name: run
       env:
         HOST: ${{ secrets.HOST }}
-        COOKIE: ${{ secrets.COOKIE }}
+        COOKIE_AUTH: ${{ secrets.COOKIE_AUTH }}
+        COOKIE_UL: ${{ secrets.COOKIE_UL }}
+        COOKIE_CF: $${{ secrets.COOKIE_CF }}
       run: |
         node index.js
