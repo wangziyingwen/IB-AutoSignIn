@@ -43,9 +43,9 @@ const $http = require("axios");
       $http.get('/plugin.php?id=k_misign:sign',{
         'headers':setHeaders(res.headers['set-cookie'] || [],cookie)
       }).then(()=>{
-        console.log('        签到成功')
+        console.log('  > 签到成功')
       }).catch(()=>{
-        console.log('        签到失败')
+        console.log('  > 签到失败')
       })
     }else{
       console.log('登录失败')

@@ -1,9 +1,9 @@
 name: autosign
 
 on: 
-  push:
+  #push:
   schedule: 
-    - cron: '30 1 * * *'
+    - cron: '30 0 * * *'
   watch:
     types: [started]
 
