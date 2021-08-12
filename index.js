@@ -1,4 +1,4 @@
-const $http = require("axios")
+const $http = require("axios");
 
 (async function() {
     $http.defaults.baseURL = process.env.HOST
