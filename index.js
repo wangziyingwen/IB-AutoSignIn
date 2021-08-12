@@ -30,7 +30,8 @@ const $http = require("axios");
         'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
       }
     })
-    res = await $http.post('/member.php?mod=logging&action=login&loginsubmit=yes&handlekey=login&loginhash=LeHw3&inajax=1',`formhash=${/name="formhash" value="(.*?)"/i.exec(res.data)[1]}&referer=https%3A%2F%2Fiboy1069.co%2F&username=${username}&password=${password}&questionid=0&answer=`,{
+    let hashparse = /name="formhash" value="(.*?)"/i
+    res = await $http.post('/member.php?mod=logging&action=login&loginsubmit=yes&handlekey=login&loginhash=LeHw3&inajax=1',`formhash=${hashparse.exec(res.data)[1]}&referer=https%3A%2F%2Fiboy1069.co%2F&username=${username}&password=${password}&questionid=0&answer=`,{
       headers:Object.assign({
         'content-type': 'application/x-www-form-urlencoded'
       },setHeaders(res.headers['set-cookie'] || [],cookie))
@@ -40,7 +41,7 @@ const $http = require("axios");
     })
     if(res.data.includes(username)){
       console.log('登录成功')
-      $http.get('/plugin.php?id=k_misign:sign',{
+      $http.get(`/plugin.php?id=k_misign:sign&operation=qiandao&formhash=${hashparse.exec(res.data)[1]}&format=empty&inajax=1&ajaxtarget=JD_sign`,{
         'headers':setHeaders(res.headers['set-cookie'] || [],cookie)
       }).then(()=>{
         console.log('  > 签到成功')
