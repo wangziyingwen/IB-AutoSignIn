@@ -71,7 +71,7 @@ const $http = require("axios");
     }
     $http.post(`https://api.telegram.org/bot${tgtoken}/sendMessage`,{
       'chat_id':chatid,
-      'text':'123',
+      'text':signState,
       'parse_mode':'HTML'
     },{
       headers:{
