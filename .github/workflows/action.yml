@@ -20,6 +20,8 @@ jobs:
         HOST: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.USERNAME }}
         PASSWORD: ${{ secrets.PASSWORD }}
+        TGTOKEN: ${{ secrets.TGTOKEN }}
+        TGCHATID: ${{ secrets.TGCHATID }}
       run: |
         echo $(date +%F%n%T)
         node index.js
