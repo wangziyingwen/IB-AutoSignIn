@@ -69,13 +69,9 @@ const $http = require("axios");
       signState +='\n  > 登录失败'
       console.log('登录失败')
     }
-    $http.post(`https://api.telegram.org/bot${tgtoken}/sendMessage`,{
-      'chat_id':chatid,
-      'text':signState,
-      'parse_mode':'HTML'
-    },{
+    $http.post(`https://api.telegram.org/bot${tgtoken}/sendMessage`,`chat_id=${chatid}&text=${signState}&parse_mode=HTML`,{
       headers:{
-        'Content-Type': 'application/json'      
+        'Content-Type': 'application/x-www-form-urlencoded'      
       }
     })
 })()
