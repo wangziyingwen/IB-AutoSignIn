@@ -5,7 +5,7 @@ const user = process.env.USER
 const tgtoken = process.env.TGTOKEN
 const chatid = process.env.TGCHATID
 async function signIn(username,password) {
-  let cookie = {}, signState = `${username.slice(0,1)}***${username.slice(-2)} : `
+  let cookie = {}, signState = `${username.slice(0,1)}***${username.slice(-1)} :   `
   function setHeaders(arr,raw) {
     arr.forEach(item=>{
       item = item.split(';',1)[0].split('=',2)
