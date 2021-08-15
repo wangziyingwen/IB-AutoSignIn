@@ -46,6 +46,7 @@ async function signIn(username,password) {
     res = await $http.get('qiaodao',{
       'headers':setHeaders(res.headers['set-cookie'] || [],cookie)
     })
+    console.log(res)
   }catch{
     return signState + '操作失败'
   }
