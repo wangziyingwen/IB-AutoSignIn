@@ -48,7 +48,7 @@ async function signIn(username,password) {
   }
   if(res.data.includes(username)){
     signState += '登陆成功'
-    await $http.get(`plugin.php?id=k_misign:sign&operation=qiandao&formhash=${/name="formhash" value="(.*?)"/i.exec(res.data)[1]}&format=empty&inajax=1&ajaxtarget=JD_sign`,{
+    await $http.get(`/plugin.php?id=k_misign:sign&operation=qiandao&formhash=${/name="formhash" value="(.*?)"/i.exec(res.data)[1]}&format=empty&inajax=1&ajaxtarget=JD_sign`,{
       'headers':setHeaders(res.headers['set-cookie'] || [],cookie)
     }).then(async (res_)=>{
       console.log(res_)
