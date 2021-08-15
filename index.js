@@ -4,7 +4,7 @@ const user = process.env.USER
 const tgbot = (process.env.TGBOT || '').split('&&',2)
 $http.defaults.baseURL = process.env.HOST
 
-if(!host || !user){
+if(!process.env.HOST || !user){
   console.log('secret未完全配置')
   process.exit(0)
 }
