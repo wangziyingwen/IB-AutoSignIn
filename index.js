@@ -43,7 +43,9 @@ async function signIn(username,password) {
         'content-type': 'application/x-www-form-urlencoded'
       },setHeaders(res.headers['set-cookie'] || [],cookie))
     })
-
+    res = await $http.get('qiandao/',{
+      'headers':setHeaders(res.headers['set-cookie'] || [],cookie)
+    })
   }catch{
     return signState + '操作失败'
   }
@@ -52,7 +54,6 @@ async function signIn(username,password) {
     await $http.get(`plugin.php?id=k_misign:sign&operation=qiandao&formhash=${/name="formhash" value="(.*?)"/i.exec(res.data)[1]}&format=empty&inajax=1&ajaxtarget=JD_sign`,{
       'headers':setHeaders(res.headers['set-cookie'] || [],cookie)
     }).then(async (res)=>{
-      console.log(res)
       if(res.data.includes('已签')){
         signState +='  > 签到成功'
       }else{
