@@ -50,18 +50,18 @@ const $http = require("axios");
             'headers':setHeaders([],cookie)
           }).then(res=>{
             if(res.data.includes(username) && !res.data.includes('您今天还没有签到')){
-              signState +='\n  > 签到成功'
+              signState +='  > 签到成功'
             }else{
-              signState +='\n  > 已签到，未知'
+              signState +='  > 已签到，未知'
             }
           }).catch(()=>{
-            signState +='\n  > 已签到，未知'
+            signState +='  > 已签到，未知'
           })
         }).catch(()=>{
-          signState +='\n  > 签到失败'
+          signState +='  > 签到失败'
         })
       }).catch(()=>{
-        signState +='\n  > 签到失败'
+        signState +='  > 签到失败'
       })
 
     }else{
