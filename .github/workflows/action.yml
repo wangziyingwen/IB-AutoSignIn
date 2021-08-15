@@ -19,8 +19,7 @@ jobs:
       env:
         HOST: ${{ secrets.HOST }}
         USER: ${{ secrets.USER }}
-        TGTOKEN: ${{ secrets.TGTOKEN }}
-        TGCHATID: ${{ secrets.TGCHATID }}
+        TGBOT: ${{ secrets.TGBOT }}
       run: |
         echo $(date +%F%n%T)
         node index.js
