@@ -43,9 +43,7 @@ async function signIn(username,password) {
         'content-type': 'application/x-www-form-urlencoded'
       },setHeaders(res.headers['set-cookie'] || [],cookie))
     })
-    res = await $http.get('qiandao/',{
-      'headers':setHeaders(res.headers['set-cookie'] || [],cookie)
-    })
+
   }catch{
     return signState + '操作失败'
   }
@@ -53,19 +51,13 @@ async function signIn(username,password) {
     signState += '登陆成功'
     await $http.get(`plugin.php?id=k_misign:sign&operation=qiandao&formhash=${/name="formhash" value="(.*?)"/i.exec(res.data)[1]}&format=empty&inajax=1&ajaxtarget=JD_sign`,{
       'headers':setHeaders(res.headers['set-cookie'] || [],cookie)
-    }).then(async (res_)=>{
-      console.log(res_)
-      await $http.get('qiandao/',{
-        'headers':setHeaders([],cookie)
-      }).then(res=>{
-        if(res.data.includes(username) && !res.data.includes('您今天还没有签到')){
-          signState +='  > 签到成功'
-        }else{
-          signState +='  > 已签到，未知'
-        }
-      }).catch(()=>{
-        signState +='  > 已签到，未知'
-      })
+    }).then(async (res)=>{
+      console.log(res)
+      if(res.data.includes('已签')){
+        signState +='  > 签到成功'
+      }else{
+        signState +='  > 签到失败'
+      }
     }).catch(()=>{
       signState +='  > 签到失败'
     })
