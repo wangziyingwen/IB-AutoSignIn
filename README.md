@@ -1,9 +1,15 @@
 # 某IB***论坛签到
 
 ### secret
-* HOST
+* **HOST**
+
     论坛网址前缀 (https://abcd.efg)
-* USER
+
+* **USER**
+
     username1,password1(换行/Enter)username2,password2...
-* TGBOT
+
+* **TGBOT**
+
     chat_id&&token (TG推送，可选)
+    
