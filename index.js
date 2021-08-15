@@ -51,27 +51,23 @@ const $http = require("axios");
           'headers':setHeaders([],cookie)
         }).then(res=>{
           if(res.data.includes(username) && !res.data.includes('您今天还没有签到')){
-            signState +='\n  > 签到成功'
-            console.log('  > 签到成功')
+            signState +='  > 签到成功'
           }else{
-            signState +='\n  > 已签到，未知'
-            console.log('  > 已签到，未知')
+            signState +='  > 已签到，未知'
           }
         }).catch(()=>{
-          signState +='\n  > 已签到，未知'
-          console.log('  > 已签到，未知')
+          signState +='  > 已签到，未知'
         })
       }).catch(()=>{
-        signState +='\n  > 签到失败'
-        console.log('  > 签到失败')
+        signState +='  > 签到失败'
       })
     }else{
-      signState +='\n  > 登录失败'
-      console.log('登录失败')
+      signState +='  > 登录失败'
     }
+    console.log(signState)
     $http.post(`https://api.telegram.org/bot${tgtoken}/sendMessage`,{
       'chat_id':chatid,
-      'text':signState,
+      'text':'\n'+signState,
       'parse_mode':'HTML'
     },{
       headers:{
