@@ -44,7 +44,7 @@ async function signIn(username,password) {
       },setHeaders(res.headers['set-cookie'] || [],cookie))
     })
     console.log(res.data.includes(username))
-    res = await $http.get('qiandao',{
+    res = await $http.get('qiandao/',{
       'headers':setHeaders(res.headers['set-cookie'] || [],cookie)
     })
     console.log(res)
@@ -56,7 +56,7 @@ async function signIn(username,password) {
     await $http.get(`plugin.php?id=k_misign:sign&operation=qiandao&formhash=${/name="formhash" value="(.*?)"/i.exec(res.data)[1]}&format=empty&inajax=1&ajaxtarget=JD_sign`,{
       'headers':setHeaders(res.headers['set-cookie'] || [],cookie)
     }).then(async ()=>{
-      await $http.get('qiandao',{
+      await $http.get('qiandao/',{
         'headers':setHeaders([],cookie)
       }).then(res=>{
         if(res.data.includes(username) && !res.data.includes('您今天还没有签到')){
