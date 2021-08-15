@@ -71,7 +71,7 @@ async function signIn(username,password) {
   }
   return signState
 }
-let allstates = user.split('&&').map(item=>{
+let allstates = user.split('\n').map(item=>{
   item = item.split(',',2)
   return signIn(item[0],item[1])
 })
