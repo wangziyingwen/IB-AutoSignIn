@@ -78,14 +78,16 @@ let allstates = user.split('\n').map(item=>{
 Promise.all(allstates).then((result)=>{
   result = result.join('\n')
   console.log(result)
-  $http.post(`https://api.telegram.org/bot${tgtoken}/sendMessage`,{
-    'chat_id':chatid,
-    'text':new Date(new Date().getTime() + 8 * 3600 * 1000).toJSON().substr(0, 19)+'\n'+result,
-  },{
-    headers:{
-      'Content-Type': 'application/json'      
-    }
-  })
+  if(tgtoken && chatid){
+    $http.post(`https://api.telegram.org/bot${tgtoken}/sendMessage`,{
+      'chat_id':chatid,
+      'text':new Date(new Date().getTime() + 8 * 3600 * 1000).toJSON().substr(0, 19)+'\n'+result,
+    },{
+      headers:{
+        'Content-Type': 'application/json'      
+      }
+    })
+  }
 })
 
 
