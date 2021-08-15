@@ -75,12 +75,12 @@ let allstates = user.split('\n').map(item=>{
   return signIn(item[0],item[1])
 })
 Promise.all(allstates).then((result)=>{
-  result = result.join('\n')
+  result = new Date(new Date().getTime() + 8 * 3600 * 1000).toJSON().substr(0, 19)+'\n'+result.join('\n')
   console.log(result)
   if(tgbot[0] && tgbot[1]){
     $http.post(`https://api.telegram.org/bot${tgbot[1]}/sendMessage`,{
       'chat_id':tgbot[0],
-      'text':new Date(new Date().getTime() + 8 * 3600 * 1000).toJSON().substr(0, 19)+'\n'+result,
+      'text':result
     },{
       headers:{
         'Content-Type': 'application/json'      

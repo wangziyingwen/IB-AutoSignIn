@@ -21,5 +21,4 @@ jobs:
         USER: ${{ secrets.USER }}
         TGBOT: ${{ secrets.TGBOT }}
       run: |
-        echo $(date +%F%n%T)
         node index.js
