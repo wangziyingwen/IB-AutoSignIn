@@ -1,12 +1,26 @@
 {
-    "name": "ib-signin",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {},
-    "author": "Kino",
-    "license": "",
-    "dependencies": {
-        "axios":""
-    }
+  "name": "ib-autosignin",
+  "version": "1.0.0",
+  "description": "ib*** bbs auto-signin program",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wangziyingwen/IB-AutoSignIn.git"
+  },
+  "keywords": [
+    "IB****",
+    "SignIn"
+  ],
+  "author": "Kino/Wangziyingwen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wangziyingwen/IB-AutoSignIn/issues"
+  },
+  "homepage": "https://github.com/wangziyingwen/IB-AutoSignIn#readme",
+  "dependencies": {
+    "axios": "^0.21.1"
   }
+}
