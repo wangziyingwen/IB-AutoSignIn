@@ -27,47 +27,50 @@ const $http = require("axios");
         'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
       }
     }
-    let res = await $http.get('/',{
+    let res = await $http.get('/member.php?mod=logging&action=login&referer=',{
       headers:{
         'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
       }
     })
-    let hashparse = /name="formhash" value="(.*?)"/i
-    res = await $http.post('/member.php?mod=logging&action=login&loginsubmit=yes&handlekey=login&loginhash=LeHw3&inajax=1',`formhash=${hashparse.exec(res.data)[1]}&referer=https%3A%2F%2Fiboy1069.co%2F&username=${username}&password=${password}&questionid=0&answer=`,{
+    res = await $http.post(`/${/name="login".*?action="(.*?)"/i.exec(res.data)[1].replace(/&amp;/g,'&')}`,`formhash=${/name="formhash" value="(.*?)"/i.exec(res.data)[1]}&referer=https%3A%2F%2Fiboy1069.co%2F&username=${username}&password=${password}&questionid=0&answer=`,{
       headers:Object.assign({
         'content-type': 'application/x-www-form-urlencoded'
       },setHeaders(res.headers['set-cookie'] || [],cookie))
     })
-    res = await $http.get('/',{
-      'headers':setHeaders(res.headers['set-cookie'] || [],cookie)
-    })
-    let signState = new Date(new Date().getTime() + 8 * 3600 * 1000).toJSON().substr(0, 19).replace('T', ' ').replace(/-/g, '.')
+    let signState = ''
     if(res.data.includes(username)){
-      console.log('登录成功')
-      await $http.get(`/plugin.php?id=k_misign:sign&operation=qiandao&formhash=${hashparse.exec(res.data)[1]}&format=empty&inajax=1&ajaxtarget=JD_sign`,{
+      signState = '登陆成功'
+      await $http.get(`/plugin.php?id=k_misign:sign&operation=qiandao&formhash=${/name="formhash" value="(.*?)"/i.exec(res.data)[1]}&format=empty&inajax=1&ajaxtarget=JD_sign`,{
         'headers':setHeaders(res.headers['set-cookie'] || [],cookie)
       }).then(async ()=>{
-        await $http.get('/',{
-          'headers':setHeaders([],cookie)
-        }).then(res=>{
-          if(res.data.includes(username) && !res.data.includes('您今天还没有签到')){
-            signState +='  > 签到成功'
-          }else{
-            signState +='  > 已签到，未知'
-          }
+        await $http.get(`/plugin.php?id=k_misign:sign&operation=qiandao&formhash=${/name="formhash" value="(.*?)"/i.exec(res.data)[1]}&format=empty&inajax=1&ajaxtarget=JD_sign`,{
+          'headers':setHeaders(res.headers['set-cookie'] || [],cookie)
+        }).then(async ()=>{
+          await $http.get('/',{
+            'headers':setHeaders([],cookie)
+          }).then(res=>{
+            if(res.data.includes(username) && !res.data.includes('您今天还没有签到')){
+              signState +='\n  > 签到成功'
+            }else{
+              signState +='\n  > 已签到，未知'
+            }
+          }).catch(()=>{
+            signState +='\n  > 已签到，未知'
+          })
         }).catch(()=>{
-          signState +='  > 已签到，未知'
+          signState +='\n  > 签到失败'
         })
       }).catch(()=>{
-        signState +='  > 签到失败'
+        signState +='\n  > 签到失败'
       })
+
     }else{
-      signState +='  > 登录失败'
+      signState = '登陆失败'
     }
     console.log(signState)
     $http.post(`https://api.telegram.org/bot${tgtoken}/sendMessage`,{
       'chat_id':chatid,
-      'text':'\n'+signState,
+      'text':new Date(new Date().getTime() + 8 * 3600 * 1000).toJSON().substr(0, 19)+'\n'+signState,
       'parse_mode':'HTML'
     },{
       headers:{
