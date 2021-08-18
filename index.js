@@ -59,7 +59,7 @@ async function signIn(username,password) {
         if(res.data.includes(username) && !res.data.includes('您今天还没有签到')){
           return '  > 签到成功'
         }else{
-          signState +='  > 已签到，未知'
+          return '  > 已签到，未知'
         }
       }).catch(()=>{
         return '  > 已签到，未知'
