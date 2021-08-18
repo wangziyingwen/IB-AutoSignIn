@@ -50,23 +50,26 @@ async function signIn(username,password) {
     return signState + '操作失败'
   }
   if(res.data.includes(username)){
-    signState += '登陆成功'
-    await $http.get(`plugin.php?id=k_misign:sign&operation=qiandao&formhash=${/name="formhash" value="(.*?)"/i.exec(res.data)[1]}&format=empty&inajax=1&ajaxtarget=JD_sign`,{
+    return signState + '登陆成功' + await $http.get(`plugin.php?id=k_misign:sign&operation=qiandao&formhash=${/name="formhash" value="(.*?)"/i.exec(res.data)[1]}&format=empty&inajax=1&ajaxtarget=JD_sign`,{
       'headers':setHeaders(res.headers['set-cookie'] || [],cookie)
-    }).then(async (res)=>{
-      console.log(res)
-      if(res.data.includes('已签')){
-        signState +='  > 签到成功'
-      }else{
-        signState +='  > 签到失败'
-      }
+    }).then(()=>{
+      return $http.get('qiandao/',{
+        'headers':setHeaders([],cookie)
+      }).then(res=>{
+        if(res.data.includes(username) && !res.data.includes('您今天还没有签到')){
+          return '  > 签到成功'
+        }else{
+          signState +='  > 已签到，未知'
+        }
+      }).catch(()=>{
+        return '  > 已签到，未知'
+      })
     }).catch(()=>{
-      signState +='  > 签到失败'
+      return '  > 签到失败'
     })
   }else{
-    signState += '登陆失败'
+    return signState + '登陆失败'
   }
-  return signState
 }
 let allstates = user.split('\n').map(item=>{
   item = item.split(',',2)
