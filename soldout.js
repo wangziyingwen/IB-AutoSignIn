@@ -2,7 +2,7 @@ const $http = require("axios")
 
 const tgbot = (process.env.TGBOT || '').split('&&',2)
 
-$http.get('https://www.hmv.co.jp/search/adv_1/category_3/keyword_No+More+Heroes+3++Nintendo+Switch+/target_GAMES/type_sr/',{
+$http.get('https://www.hmv.co.jp/en/search/adv_1/category_3/keyword_No+More+Heroes+3++Nintendo+Switch+/target_GAMES/type_sr/',{
     headers:{
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'Accept-Encoding': 'gzip, deflate, br' ,
@@ -10,8 +10,7 @@ $http.get('https://www.hmv.co.jp/search/adv_1/category_3/keyword_No+More+Heroes+
         'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
       }
 }).then(res=>{
-        console.log(res.data)
-        if(!res.data.includes('販売終了')){
+        if(!res.data.includes('Deleted')){
             if(tgbot[0] && tgbot[1]){
                 $http.post(`https://api.telegram.org/bot${tgbot[1]}/sendMessage`,{
                   'chat_id':tgbot[0],
@@ -28,7 +27,7 @@ $http.get('https://www.hmv.co.jp/search/adv_1/category_3/keyword_No+More+Heroes+
     }
 ).catch()
 
-$http.get('https://www.hmv.co.jp/basket/updatewishlist/method_type/CARTALL/?sku2%5B%5D=11776374',{
+$http.get('https://www.hmv.co.jp/en/basket/updatewishlist/method_type/CARTALL/?sku2%5B%5D=11776374',{
     headers:{
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'Accept-Encoding': 'gzip, deflate, br' ,
@@ -36,8 +35,7 @@ $http.get('https://www.hmv.co.jp/basket/updatewishlist/method_type/CARTALL/?sku2
         'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
       }
 }).then(res=>{
-    console.log(res.data)
-    if(!res.data.includes('は完売しました')){
+    if(!res.data.includes('is sold out')){
         if(tgbot[0] && tgbot[1]){
             $http.post(`https://api.telegram.org/bot${tgbot[1]}/sendMessage`,{
               'chat_id':tgbot[0],
