@@ -18,6 +18,8 @@ $http.get('https://www.hmv.co.jp/search/adv_1/category_3/keyword_No+More+Heroes+
                   }
                 })
             }
+        }else{
+            console.log('无货')
         }
     }
 ).catch()
@@ -38,5 +40,7 @@ $http.get('https://www.hmv.co.jp/basket/updatewishlist/method_type/CARTALL/?sku2
               }
             })
         }
+    }else{
+        console.log('无货')
     }
 }).catch()
