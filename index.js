@@ -1,4 +1,4 @@
-const $http = require("axios");
+const $http = require("axios")
 
 const user = process.env.USER
 const tgbot = (process.env.TGBOT || '').split('&&',2)
