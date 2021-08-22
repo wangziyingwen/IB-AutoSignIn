@@ -3,7 +3,7 @@ name: autosign
 on: 
   #push:
   schedule: 
-    - cron: '*/10 * * * *'
+    - cron: '30 0 * * *'
   watch:
     types: [started]
 
@@ -21,4 +21,4 @@ jobs:
         USER: ${{ secrets.USER }}
         TGBOT: ${{ secrets.TGBOT }}
       run: |
-        node soldout.js
+        node index.js
