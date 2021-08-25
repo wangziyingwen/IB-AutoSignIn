@@ -89,10 +89,13 @@ async function signIn(username,password) {
     }
   }
 }
+
 let allstates = user.split('\n').map(item=>{
   item = item.split(',',2)
   return signIn(item[0],item[1])
 })
+
+//tg推送
 Promise.all(allstates).then((result)=>{
   result = new Date(new Date().getTime() + 8 * 3600 * 1000).toJSON().substr(0, 19)+'\n'+result.join('\n')
   console.log(result)
